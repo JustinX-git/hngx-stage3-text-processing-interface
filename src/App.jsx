@@ -4,19 +4,23 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  let test = "The translation API is NOT supported";
+  let translationTest = "The translation API is NOT supported";
+  let summarizerTest = "The translation API is NOT supported";
+
   if ("ai" in self && "translator" in self.ai) {
-    // The Translator API is supported.
-    console.log(self);
-    // console.log("The translation API IS supported")
-    test = "The translation API IS supported";
+    translationTest = "The translation API IS supported";
+  }
+
+  if ('ai' in self && 'summarizer' in self.ai) {
+   summarizerTest = "The summarizer API IS supported";
   }
 
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <h1>{test}</h1>
+      <h3>{translationTest}</h3>
+      <h3>{summarizerTest}</h3>
     </>
   );
 }
