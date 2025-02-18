@@ -1,0 +1,73 @@
+#options-wrapper{
+    position: relative;
+    /* z-index: 5; */
+    width: 200px;
+    height: 42px;
+    color: #000;
+    border-radius: 8px;
+    overflow:hidden;
+}
+
+#options-wrapper.reveal{
+    border-radius: 8px;
+    overflow: visible;
+}
+
+#selected{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: inherit;
+    height: inherit;
+    text-align: center;
+    background-color: grey
+}
+
+
+#translate-options{
+ position: absolute;
+ left: 0;
+ top: 0;
+ width: inherit;
+ list-style: none;
+ text-align: center;
+ background: rgba(128, 128, 128, 0.338);
+ transform: translateY(-20px);
+ opacity: 0;
+ animation: slideUp .4s ease forwards;
+}
+
+#translate-options.reveal{
+    animation: slideDown .4s ease forwards;
+}
+
+@keyframes slideDown {
+    to{
+        opacity: 1;
+        transform: translateY(35px);
+    }
+}
+
+@keyframes slideUp {
+    to{
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.option{
+    position: relative;
+    /* z-index: 20; */
+    cursor: pointer;
+    padding: .8rem 0;
+    animation: fadeIn .4s ease forwards;
+}
+
+.option:hover{
+    background-color: grey;
+}
+
+
+
+

@@ -1,0 +1,19 @@
+#user-input-wrapper{
+    position: fixed;
+    bottom: 5%;
+    width: 90%;
+    max-width: 100rem;
+    display: flex;
+    justify-content: center;
+    column-gap: .5rem;
+    /* left: 50%;
+    transform: translateX(-10%) */
+};
+
+
+
+#submit-btn{
+    width: 100px;
+    aspect-ratio: 1/2;
+    border-radius: 10px;
+}
