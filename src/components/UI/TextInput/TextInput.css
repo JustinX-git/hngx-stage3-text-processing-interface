@@ -1,6 +1,6 @@
 #user-input-wrapper{
-    position: fixed;
-    bottom: 5%;
+    /* position: fixed; */
+    /* bottom: 5%; */
     width: 90%;
     max-width: 100rem;
     display: flex;
@@ -15,7 +15,6 @@
     max-width: 100rem;
     display: flex;
     justify-content: center;
-    /* align-items: end; */
     column-gap: .5rem;
 }
 
@@ -32,4 +31,31 @@
 
 #submit-btn:disabled:hover{
     border: none
+}
+
+
+@media(max-width:540px){
+    #user-input-wrapper{
+        bottom: 2%;
+        left: 0%;
+        width: 100%;
+        column-gap: .5rem;
+    }
+    #submit-btn{
+        width: 40px;
+        height: 60px;
+        padding: 1px;
+        font-size: .8em;
+        /* border-radius: 5px; */
+    }
+
+    /* #intro-user-input-wrapper{
+        position: fixed;
+        bottom: 40%;
+        width: 90%;
+        max-width: 100rem;
+        display: flex;
+        justify-content: center;
+        column-gap: .5rem;
+    } */
 }

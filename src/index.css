@@ -66,4 +66,12 @@ textarea{
   border-radius: 15px;
   font-size: 17px;
   resize: none;
-  ;}
+  }
+
+  @media(max-width:540px){
+    textarea{
+      width: 70%;
+      height: 40px;
+    }
+}
+

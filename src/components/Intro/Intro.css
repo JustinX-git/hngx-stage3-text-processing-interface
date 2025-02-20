@@ -52,3 +52,16 @@
        opacity: 1;
      }
   }
+
+  @media(max-width:540px){
+    .txt-type{
+      font-size: 3rem;
+      padding: 0.4rem;
+      text-align: center;
+    }
+
+    .static-cursor, .blinking-cursor,.blinking-cursor__xtra{
+     display: none;
+    }
+    
+  }

@@ -46,11 +46,11 @@ const downloadSummarizerModel =  async() =>{
     setSummarizerState({modelState:"available",downloaded:100})
   } else if(canSummarize === 'after-download') {
     // The Summarizer API can be used after the model is downloaded.
-    const summarizer = await self.ai.summarizer.create();
-    summarizer.addEventListener('downloadprogress', (e) => {
-      console.log(e.loaded, e.total);
-      // setSummarizerState({modelState:"downloading",downloaded:((e.loaded/e.total) * 100)})
-    });
+    // const summarizer = await self.ai.summarizer.create();
+    // summarizer.addEventListener('downloadprogress', (e) => {
+    //   console.log(e.loaded, e.total);
+    //   // setSummarizerState({modelState:"downloading",downloaded:((e.loaded/e.total) * 100)})
+    // });
     await summarizer.ready;
   }
 }
@@ -105,7 +105,7 @@ useEffect(()=>{
     <div className="chatbox">
       {messages.map((msg, index,array) => (msg.sender ==="user" ? <UserOutputTxt key={index} index={userMsgIndex++} inputTxt={msg.text} messages={array} setMessages={setMessages}/>:<AIOutputTxt  key={index} action={msg.action} originalTxt={msg.originalTxt} modifiedTxt={msg.modifiedTxt} sourceFullName={msg. sourceFullName} targetFullName={msg.targetFullName} errorMsg={msg.msg} setMessages={setMessages}/>)
     )}
-    <div style={{marginTop:"7rem"}} ref={outputEndRef}/>
+    <div style={{marginTop:"2rem"}} ref={outputEndRef}/>
     </div>
        <TextInput isIntro={false} setMessages={setMessages}/>
      </>

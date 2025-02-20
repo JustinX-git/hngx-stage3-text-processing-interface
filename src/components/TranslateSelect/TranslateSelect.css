@@ -1,20 +1,43 @@
-.select-container > h5{
-    text-align: center;
+.select-container{
+    position: relative;
+    z-index: auto;
+    animation: slideInRight 1s ease  forwards;
+}
+
+
+.select-container .fa-chevron-down{
+    font-size: 11px;
+    transition: transform .4s ease;
+}
+
+.select-container.reveal{
+    z-index: 100;
+}
+
+.select-container.reveal .fa-chevron-down{
+    transform: rotate(-180deg);
+}
+
+@keyframes slideInRight {
+    from{
+        opacity: 0;
+        transform: translateX(100px);
+    }
 }
 
 #options-wrapper{
-    position: relative;
-    /* z-index: 5; */
-    isolation: auto;
+    position: absolute;
+    bottom:27px;
+    right: 85px;
     width: 200px;
     height: 42px;
-    color: #000;
-    border-radius: 8px;
+    color: #fff;
+    box-shadow: 1px 1px 3px grey;
     overflow:hidden;
 }
 
+
 #options-wrapper.reveal{
-    isolation: isolate;
     z-index: 50;
     border-radius: 8px;
     overflow: visible;
@@ -24,11 +47,14 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     width: inherit;
     height: inherit;
     text-align: center;
-    background-color: grey
+    background-image: linear-gradient(to bottom right, rgb(133, 172, 217) 5%, rgb(120, 132, 156));
 }
 
 
@@ -39,27 +65,21 @@
  width: inherit;
  list-style: none;
  text-align: center;
- background: rgba(128, 128, 128, 0.338);
- transform: translateY(-20px);
+ background: red;
+ transform: translateY(0px);
  opacity: 0;
- animation: slideUp .4s ease forwards;
 }
+
 
 #translate-options.reveal{
     animation: slideDown .4s ease forwards;
 }
 
+
 @keyframes slideDown {
     to{
         opacity: 1;
-        transform: translateY(35px);
-    }
-}
-
-@keyframes slideUp {
-    to{
-        opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(29px);
     }
 }
 
@@ -75,6 +95,8 @@
     animation: fadeIn .4s ease forwards;
 }
 
+
+
 @keyframes fadeIn {
     to{
         opacity: 1;
@@ -83,6 +105,22 @@
 
 .option:hover{
     background-color: grey;
+}
+
+@media(max-width: 540px){
+    #options-wrapper{
+        font-size: .7em;
+        width: 90px;
+        right: 85px;
+        bottom:32px;
+        height: 29px;
+    }
+
+    #options-wrapper.shift{
+        right: 175px;
+    }
+    
+    
 }
 
 

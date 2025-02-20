@@ -106,10 +106,9 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
             messages={messages}
             setToSummarize={setToSummarize}
             setToTranslate={setToTranslate}
-          />
+            />
         </div>
         <div className="ai-tools">
-          {toTranslate && <TranslateSelect lang={lang} setLang={setLang} />}
           {toTranslate && (
             <button className="translate-btn" onClick={translateTxtHandler}>
               Translate <i className="fa fa-exchange" aria-hidden="true"></i>
@@ -122,6 +121,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
           )}
         </div>
       </div>
+        {toTranslate && <TranslateSelect toSummarize={toSummarize} lang={lang} setLang={setLang} />}
     </>
   );
 };

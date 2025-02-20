@@ -2,7 +2,7 @@ import { useState } from "react";
 import TranslateOption from "../TranslateOption/TranslateOption";
 import "./TranslateSelect.css";
 
-const TranslateSelect = ({lang,setLang}) => {
+const TranslateSelect = ({toSummarize, lang,setLang}) => {
   const options = [
     ["English", "en"],
     ["Portuguese", "pt"],
@@ -11,14 +11,14 @@ const TranslateSelect = ({lang,setLang}) => {
     ["Turkish", "tr"],
     ["French", "fr"],
   ];
+
   const [selected, setSelected] = useState(true);
 
 
   return (
     <>
-     <div className="select-container">
-     <h5 id="select-label">Translate to:</h5>
-      <div id="options-wrapper" className={`${selected ? "" : "reveal"}`}>
+     <div className= {`select-container${selected ? "" : " reveal"}`}>
+      <div id="options-wrapper" className={`${selected ? "" : "reveal"}${toSummarize ? " shift":""}`}>
         <h3
           onClick={() => {
             setSelected(selected === true ? false : true);
@@ -26,6 +26,7 @@ const TranslateSelect = ({lang,setLang}) => {
           id="selected"
         >
           {lang.long}
+          <i className="fa fa-chevron-down" aria-hidden="true"></i>
         </h3>
         <ul id="translate-options" className={`${selected ? "" : "reveal"}`}>
           {options.map((option, index) => (
