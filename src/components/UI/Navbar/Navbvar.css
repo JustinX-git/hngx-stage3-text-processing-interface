@@ -41,17 +41,4 @@
         margin: auto;
         /* column-gap: .1rem; */
     }
-    #nav-container{
-        /* flex-direction: row-reverse; */
-        /* position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        height: 4rem;
-        width: 100%;
-        backdrop-filter: blur(10px);
-        background-color: #ecfeff65; */
-    }
 }

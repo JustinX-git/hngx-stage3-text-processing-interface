@@ -90,6 +90,11 @@ font-size: 10px;
     scale: 1.04;
 }
 
+@media(max-width:1024px){
+    .user-output{
+        transform: translateX(-10px);
+    }   
+}
 
 @media(max-width:540px){
     .user-output{
