@@ -17,7 +17,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
   const translateTxtHandler = async (e) => {
     e.preventDefault();
     // Check availability of translation API.
-    if ('ai' in self && 'translator' in self.ai) {
+    if ("ai" in self && "translator" in self.ai) {
       const sourceLanguage = JSON.parse(localStorage.getItem("detectedLangs"))[
         index
       ][1];
@@ -27,21 +27,20 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
       setMessages((prevMessages) => {
         return [...prevMessages, { sender: "ai", action: "load" }];
       });
-        
-  
+
       try {
         const translatorCapabilities = await self.ai.translator.capabilities();
         const languagePackStatus = translatorCapabilities.languagePairAvailable(
           sourceLanguage,
           targetLanguage
         );
-  
+
         if (languagePackStatus === "no") {
           throw new Error(
             "This translation is currently not supported, please try another."
           );
         }
-  
+
         let translator;
         if (languagePackStatus === "readily") {
           //translation logic
@@ -55,7 +54,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
             targetLanguage,
           });
         }
-  
+
         const translation = await translator.translate(inputTxt);
         setMessages((prevMessages) => {
           const prev = [...prevMessages];
@@ -93,20 +92,15 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
             return prev;
           });
         }
-  
       }
-    }else{
-      setMessages((prevMessages) => {
-        const prev = [...prevMessages];
-        prev[(prev.length !== 0 ? prev.length -1 : 0)] = {
+    } else {
+      setMessages({
           sender: "ai",
           action: "displayError",
           msg: "Sorry, this feature is not supported on this device",
-        };
-        return prev;
-      });
+        }
+      );
     }
-
   };
 
   return (
@@ -120,7 +114,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
             messages={messages}
             setToSummarize={setToSummarize}
             setToTranslate={setToTranslate}
-            />
+          />
         </div>
         <div className="ai-tools">
           {toTranslate && (
@@ -135,7 +129,13 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
           )}
         </div>
       </div>
-        {toTranslate && <TranslateSelect toSummarize={toSummarize} lang={lang} setLang={setLang} />}
+      {toTranslate && (
+        <TranslateSelect
+          toSummarize={toSummarize}
+          lang={lang}
+          setLang={setLang}
+        />
+      )}
     </>
   );
 };
