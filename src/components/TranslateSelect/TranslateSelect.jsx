@@ -16,7 +16,8 @@ const TranslateSelect = ({lang,setLang}) => {
 
   return (
     <>
-      <h5 id="select-label">Translate to:</h5>
+     <div className="select-container">
+     <h5 id="select-label">Translate to:</h5>
       <div id="options-wrapper" className={`${selected ? "" : "reveal"}`}>
         <h3
           onClick={() => {
@@ -40,6 +41,7 @@ const TranslateSelect = ({lang,setLang}) => {
           ))}
         </ul>
       </div>
+     </div>
     </>
   );
 };

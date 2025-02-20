@@ -1,0 +1,54 @@
+#intro-container{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    /* height: 100dvh; */
+    place-items: center;
+}
+
+.txt-type{
+    position: relative;
+    display: inline-block;
+    font-size: 4rem;
+    transform: translateY(-80%);
+  }
+  
+  .static-cursor{
+    position: absolute;
+    right: 0px;
+    display: inline-block;
+    height: 90%;
+    width: 2px;
+    background: #000;
+  }
+  
+  .blinking-cursor{
+    position: absolute;
+    right: 0px;
+    display: inline-block;
+    height: 90%;
+    width: 2px;
+    background: #000;
+    animation: cursorBlink infinite;
+    animation-duration:.5s;
+    opacity: 0;
+  }
+  
+  .blinking-cursor__xtra{
+    display: inline-block;
+    height: 39px;
+    width: 2px;
+    background: #000;
+    animation: cursorBlink infinite;
+    animation-duration:.7s;
+    opacity: 0;
+  }
+  
+  @keyframes cursorBlink {
+     to{
+       opacity: 1;
+     }
+  }

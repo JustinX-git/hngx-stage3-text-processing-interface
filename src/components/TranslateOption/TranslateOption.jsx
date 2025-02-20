@@ -1,10 +1,10 @@
-const TranslateOption = ({lang,shortLang,index,setSelected,setLang}) =>{
+const TranslateOption = ({lang,shortLang,selected,index,setSelected,setLang}) =>{
     const selectedHandler = () =>{
        setSelected(true);
        setLang({long:lang,short:shortLang})
     }
     return (
-        <li className="option" onClick={selectedHandler} style={{animationDelay:`${index *.7}s`}}>{lang}</li>
+        <li className={`option${selected ? "" : " reveal"}`}onClick={selectedHandler} style={{animationDelay:`${index *.103}s`}}>{lang}</li>
     )
 }
 

@@ -1,6 +1,11 @@
+.select-container > h5{
+    text-align: center;
+}
+
 #options-wrapper{
     position: relative;
     /* z-index: 5; */
+    isolation: auto;
     width: 200px;
     height: 42px;
     color: #000;
@@ -9,6 +14,8 @@
 }
 
 #options-wrapper.reveal{
+    isolation: isolate;
+    z-index: 50;
     border-radius: 8px;
     overflow: visible;
 }
@@ -58,10 +65,20 @@
 
 .option{
     position: relative;
-    /* z-index: 20; */
     cursor: pointer;
     padding: .8rem 0;
+    opacity: 0;
+    transition: opacity .4s;
+}
+
+.option.reveal{
     animation: fadeIn .4s ease forwards;
+}
+
+@keyframes fadeIn {
+    to{
+        opacity: 1;
+    }
 }
 
 .option:hover{
