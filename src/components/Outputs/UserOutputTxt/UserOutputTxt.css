@@ -88,3 +88,20 @@ font-size: 10px;
     scale: 1.04;
 }
 
+
+/* @media(max-width:540px){
+    .user-output{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        animation: slideInRightMobile 1s ease  forwards;
+        margin-bottom: 2rem;
+    }
+    
+    @keyframes slideInRightMobile {
+        from{
+            opacity: 0;
+            transform: translateX(10px);
+        }
+    }
+} */

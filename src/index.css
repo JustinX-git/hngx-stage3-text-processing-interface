@@ -21,6 +21,7 @@ html, body {
   height: 100%; 
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   overflow-y: auto; 
 }
 
@@ -66,25 +67,3 @@ textarea{
   font-size: 17px;
   resize: none;
   ;}
-
-/* button:hover {
-  border-color: #00000078;
-} */
-
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
-
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
