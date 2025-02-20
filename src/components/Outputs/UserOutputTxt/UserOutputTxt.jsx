@@ -94,12 +94,13 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
         }
       }
     } else {
-      setMessages({
+      setMessages((prevMessages)=>{
+         return [...prevMessages,{
           sender: "ai",
           action: "displayError",
-          msg: "Sorry, this feature is not supported on this device",
-        }
-      );
+          msg: "Sorry, this feature is not supported on this device"
+        }]
+      });
     }
   };
 
