@@ -39,7 +39,6 @@ const downloadSummarizerModel =  async() =>{
   const languageSummarizerCapabilities = await self.ai.summarizer.capabilities();
   const canSummarize = languageSummarizerCapabilities.available;
 
-  console.log(languageSummarizerCapabilities)
  
   if (canSummarize === 'readily') {
     // The Summarizer API can be used immediately .

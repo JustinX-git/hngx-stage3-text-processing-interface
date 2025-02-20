@@ -70,6 +70,12 @@ textarea{
   background-color: #fff;
   }
 
+  @media(max-width:1020px){
+    textarea{
+      width: 70%;
+    }
+}
+
   @media(max-width:540px){
     textarea{
       width: 70%;

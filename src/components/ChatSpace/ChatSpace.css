@@ -1,7 +1,4 @@
 .chatbox{
-    /* position: absolute; */
-    /* top: 0;
-    left: 0; */
     margin-bottom: .8rem;
     height: 60vh;
     height: 60dvh;
@@ -11,6 +8,35 @@
     overflow-y: scroll;
 }
 
+
+/* ScrollBar Styles */
+.chatbox::-webkit-scrollbar{
+    width: 20px;
+  }
+  
+  .chatbox::-webkit-scrollbar-track{
+    width: 5px;
+    background: transparent;
+  }
+  
+  .chatbox::-webkit-scrollbar-thumb{  
+    background: hsla(176, 25%, 43%, 0.352);
+    border-radius: 50px;
+    border: 5px solid transparent;
+    background-clip: content-box;
+  }
+  
+
+@media(max-width:1024px){
+    .chatbox{
+        height: 85vh;
+        height: 85dvh;
+        width: 100%;
+        padding: 0;
+        margin: auto auto .75rem auto;
+}
+
+}
 @media(max-width:540px){
     .chatbox{
         height: 75vh;
