@@ -17,8 +17,6 @@ const App = ()  =>{
   return (
     <>
       <ChatSpace/>
-      {/* <h3>{summarizerTest}</h3>
-      <h3>{langDetectTest}</h3> */}
     </>
   );
 }

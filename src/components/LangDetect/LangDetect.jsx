@@ -17,7 +17,6 @@ const LangDetect = ({ inputText, index,messages,setToSummarize,setToTranslate })
     const { confidence, detectedLanguage } = results[0];
 
     if (
-      // (Confidence: ${Math.round(confidence * 100)}%) 
       confidence >= 0.4 &&
       getLanguageName(detectedLanguage) !== "unknown"
     ) {
