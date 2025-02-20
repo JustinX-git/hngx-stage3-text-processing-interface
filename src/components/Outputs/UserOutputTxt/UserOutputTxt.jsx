@@ -14,6 +14,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
     return languageNames.of(langCode) || "Unknown Language";
   }
 
+  //Trigger translating  model
   const translateTxtHandler = async (e) => {
     e.preventDefault();
     // Check availability of translation API.
@@ -24,6 +25,8 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
       const targetLanguage = lang.short;
       const sourceFullName = getLanguageName(sourceLanguage);
       const targetFullName = getLanguageName(targetLanguage);
+
+      //Dispatch loading animation.
       setMessages((prevMessages) => {
         return [...prevMessages, { sender: "ai", action: "load" }];
       });
@@ -68,7 +71,9 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
           };
           return prev;
         });
+
       } catch (error) {
+        //In the instance where user attempts to translate a language to itself, we display a humorous message.
         if (sourceLanguage === targetLanguage) {
           setTimeout(() => {
             setMessages((prevMessages) => {
@@ -98,11 +103,59 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
          return [...prevMessages,{
           sender: "ai",
           action: "displayError",
-          msg: "Sorry, this feature is not supported on this device"
+          msg: "Sorry, this feature is not supported on your browser."
         }]
       });
     }
   };
+
+  //Trigger summarizer model
+  const summarizeTxtHandler = async (e) =>{
+    e.preventDefault();
+    if ('ai' in self && 'summarizer' in self.ai) {
+      //Dispatch loading animation.
+      setMessages((prevMessages) => {
+        return [...prevMessages, { sender: "ai", action: "summarizerload" }];
+      });
+
+  try {
+    const summarizer = await self.ai.summarizer.create({format:"plain-text"});
+    const summary = await summarizer.summarize(longText);
+
+    setMessages((prevMessages) => {
+      const prev = [...prevMessages];
+      prev[prev.length - 1] = {
+        sender: "ai",
+        action: "summarize",
+        originalTxt: inputTxt,
+        modifiedTxt: summary,
+      };
+      return prev;
+    });
+  } catch (error) {
+    if(error.message === "The session cannot be created.")
+      setMessages((prevMessages) => {
+        const prev = [...prevMessages];
+        prev[prev.length - 1] = {
+          sender: "ai",
+          action: "displayError",
+          msg: "Sorry, your device doesn't meet the requirements to run the summarize model.",
+        };
+        return prev;
+      });
+  }
+
+
+    }else{
+      setMessages((prevMessages)=>{
+        return [...prevMessages,{
+         sender: "ai",
+         action: "displayError",
+         msg: "Sorry, this feature is not supported on your browser."
+       }]
+     });
+    }
+  }
 
   return (
     <>
@@ -119,12 +172,12 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
         </div>
         <div className="ai-tools">
           {toTranslate && (
-            <button className="translate-btn" onClick={translateTxtHandler}>
+            <button tabIndex={0} aria-label="translate button" className="translate-btn" onClick={translateTxtHandler}>
               Translate <i className="fa fa-exchange" aria-hidden="true"></i>
             </button>
           )}
           {toSummarize && (
-            <button className="summarize-btn">
+            <button tabIndex={0} aria-label="summarize button" className="summarize-btn" onClick={summarizeTxtHandler}>
               Summarize <i className="fa fa-align-right" aria-hidden="true"></i>
             </button>
           )}

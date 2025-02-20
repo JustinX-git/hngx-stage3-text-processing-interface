@@ -30,11 +30,11 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
                 prev[prev.length - 1] = {
                   sender: "ai",
                   action: "displayError",
-                  msg: "Process took too long. Please check your internet connection and try again.",
+                  msg: "Process took too long. Please check your internet connection or try a different text to proccess.",
                 };
                 return prev;
               });
-        },120000)
+        },1200000)
 
         return(
             <div className="morph-container">
@@ -43,12 +43,20 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
             </svg>
         </div>
         )
-    } else if(action === "displayError" || action === "displayHumourousErr"){
+    }else if(action === "summarizerload"){
+        return( 
+            <div className="AI-output" style={{
+                display:"flex",
+                alignItems:"center"
+            }}>
+           <img src="/Bean Eater.gif"  width={60} height={60} alt="pacman" /> <p className="summarizer-loader">Summarizing...</p>
+           </div>
+           )
 
-       return(
-        
+    }else if(action === "displayError" || action === "displayHumourousErr"){
+       return( 
         <div className="AI-output">
-        <p className={action === "displayError" ? "alert" : ""}>{errorMsg}</p>
+        <p aria-label="error message" aria-live="assertive"  className={action === "displayError" ? "alert" : ""}>{errorMsg}</p>
        </div>
        )
     }else{

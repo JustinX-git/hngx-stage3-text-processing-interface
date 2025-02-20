@@ -10,7 +10,7 @@ const ChatSpace = () => {
   const outputEndRef = useRef(null);
   const [detectorState, setDetectorState] = useState({modelState:"unavailable",downloaded:0});
   const [summarizerState, setSummarizerState] = useState({modelState:"unavailable",downloaded:0});
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState( localStorage.getItem("messages") ? JSON.parse(localStorage.getItem("messages")) : []);
   let userMsgIndex = 0;
 
 //Downloading Language Detect model if not available
@@ -56,7 +56,6 @@ const downloadSummarizerModel =  async() =>{
 }
 
 
-
 //Effects
 useEffect(()=>{
   downloadLangDetectModel();
@@ -69,13 +68,13 @@ useEffect(()=>{
 
 
 //Scrolls to the bottom of the chats for every update in the chat messages.
-  useEffect(()=>{
+  useEffect(()=>{ 
     const lastMsg = messages[messages.length - 1];
     if(lastMsg && (lastMsg.action !== "translate" && lastMsg.action !== "summarize" )){
       outputEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
   
-
+    localStorage.setItem("messages", JSON.stringify(messages));
   },[messages])
 
 

@@ -27,13 +27,18 @@
 
 #options-wrapper{
     position: absolute;
-    bottom:27px;
-    right: 85px;
-    width: 200px;
-    height: 42px;
+    bottom:31px;
+    right: 95px;
+    width: 100px;
+    height: 35px;
+    font-size: .8em;
     color: #fff;
     box-shadow: 1px 1px 3px grey;
     overflow:hidden;
+}
+
+#options-wrapper.shift{
+    right: 212px;
 }
 
 
@@ -54,6 +59,7 @@
     width: inherit;
     height: inherit;
     text-align: center;
+    cursor: pointer;
     background-image: linear-gradient(to bottom right, rgb(133, 172, 217) 5%, rgb(120, 132, 156));
 }
 
@@ -65,7 +71,7 @@
  width: inherit;
  list-style: none;
  text-align: center;
- background: red;
+ background-image: linear-gradient(to bottom right, rgb(133, 172, 217) 5%, rgb(120, 132, 156));
  transform: translateY(0px);
  opacity: 0;
 }
@@ -104,7 +110,7 @@
 }
 
 .option:hover{
-    background-color: grey;
+    background-color: rgba(97, 127, 158, 0.57);
 }
 
 @media(max-width: 540px){

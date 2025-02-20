@@ -31,13 +31,15 @@ const TextInput = ({isIntro, setMessages}) => {
         <textarea
           ref={inputRef}
           placeholder="Enter text to process"
-          tabIndex={0}
           name="user-input"
           id="user-input"
           className= "user-input"
+          tabIndex={0}
+          aria-placeholder="Enter text to process"
+          aria-label="Enter text input"
           onChange={onChangeHandler}
         />
-        <button disabled={disabledState} type="submit" name="submit-btn" id="submit-btn">
+        <button disabled={disabledState} aria-disabled={disabledState} tabIndex={0} aria-label="Submit text" type="submit" name="submit-btn" id="submit-btn">
           <i className="fa fa-paper-plane" aria-hidden="true"></i>
         </button>
       </form>
