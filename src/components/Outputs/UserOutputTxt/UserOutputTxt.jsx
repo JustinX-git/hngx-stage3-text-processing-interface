@@ -16,83 +16,97 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
 
   const translateTxtHandler = async (e) => {
     e.preventDefault();
-    const sourceLanguage = JSON.parse(localStorage.getItem("detectedLangs"))[
-      index
-    ][1];
-    const targetLanguage = lang.short;
-    const sourceFullName = getLanguageName(sourceLanguage);
-    const targetFullName = getLanguageName(targetLanguage);
-    setMessages((prevMessages) => {
-      return [...prevMessages, { sender: "ai", action: "load" }];
-    });
-      
-
-    try {
-      const translatorCapabilities = await self.ai.translator.capabilities();
-      const languagePackStatus = translatorCapabilities.languagePairAvailable(
-        sourceLanguage,
-        targetLanguage
-      );
-
-      if (languagePackStatus === "no") {
-        throw new Error(
-          "This translation is currently not supported, please try another."
-        );
-      }
-
-      let translator;
-      if (languagePackStatus === "readily") {
-        //translation logic
-        translator = await self.ai.translator.create({
-          sourceLanguage,
-          targetLanguage,
-        });
-      } else {
-        translator = await self.ai.translator.create({
-          sourceLanguage,
-          targetLanguage,
-        });
-      }
-
-      const translation = await translator.translate(inputTxt);
+    // Check availability of translation API.
+    if ('ai' in self && 'translator' in self.ai) {
+      const sourceLanguage = JSON.parse(localStorage.getItem("detectedLangs"))[
+        index
+      ][1];
+      const targetLanguage = lang.short;
+      const sourceFullName = getLanguageName(sourceLanguage);
+      const targetFullName = getLanguageName(targetLanguage);
       setMessages((prevMessages) => {
-        const prev = [...prevMessages];
-        prev[prev.length - 1] = {
-          sender: "ai",
-          action: "translate",
-          sourceFullName,
-          targetFullName,
-          originalTxt: inputTxt,
-          modifiedTxt: translation,
-        };
-        return prev;
+        return [...prevMessages, { sender: "ai", action: "load" }];
       });
-    } catch (error) {
-      if (sourceLanguage === targetLanguage) {
-        setTimeout(() => {
-          setMessages((prevMessages) => {
-            const prev = [...prevMessages];
-            prev[prev.length - 1] = {
-              sender: "ai",
-              action: "displayHumourousErr",
-              msg: `Phew! Translating ${sourceFullName} to ${targetFullName} was hard work. 😪 …Oh wait, nothing changed! Try a different language. 😉`,
-            };
-            return prev;
+        
+  
+      try {
+        const translatorCapabilities = await self.ai.translator.capabilities();
+        const languagePackStatus = translatorCapabilities.languagePairAvailable(
+          sourceLanguage,
+          targetLanguage
+        );
+  
+        if (languagePackStatus === "no") {
+          throw new Error(
+            "This translation is currently not supported, please try another."
+          );
+        }
+  
+        let translator;
+        if (languagePackStatus === "readily") {
+          //translation logic
+          translator = await self.ai.translator.create({
+            sourceLanguage,
+            targetLanguage,
           });
-        }, 2000);
-      } else {
+        } else {
+          translator = await self.ai.translator.create({
+            sourceLanguage,
+            targetLanguage,
+          });
+        }
+  
+        const translation = await translator.translate(inputTxt);
         setMessages((prevMessages) => {
           const prev = [...prevMessages];
           prev[prev.length - 1] = {
             sender: "ai",
-            action: "displayError",
-            msg: error.message,
+            action: "translate",
+            sourceFullName,
+            targetFullName,
+            originalTxt: inputTxt,
+            modifiedTxt: translation,
           };
           return prev;
         });
+      } catch (error) {
+        if (sourceLanguage === targetLanguage) {
+          setTimeout(() => {
+            setMessages((prevMessages) => {
+              const prev = [...prevMessages];
+              prev[prev.length - 1] = {
+                sender: "ai",
+                action: "displayHumourousErr",
+                msg: `Phew! Translating ${sourceFullName} to ${targetFullName} was hard work. 😪 …Oh wait, nothing changed! Try a different language. 😉`,
+              };
+              return prev;
+            });
+          }, 2000);
+        } else {
+          setMessages((prevMessages) => {
+            const prev = [...prevMessages];
+            prev[prev.length - 1] = {
+              sender: "ai",
+              action: "displayError",
+              msg: error.message,
+            };
+            return prev;
+          });
+        }
+  
       }
-
+    }else{
+      setMessages((prevMessages) => {
+        const prev = [...prevMessages];
+        prev[(prev.length !== 0 ? prev.length -1 : 0)] = {
+          sender: "ai",
+          action: "displayError",
+          msg: "Sorry, this feature is not supported on this device",
+        };
+        return prev;
+      });
     }
+
   };
 
   return (
