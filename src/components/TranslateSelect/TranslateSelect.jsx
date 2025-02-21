@@ -16,7 +16,7 @@ const TranslateSelect = ({toSummarize, lang,setLang}) => {
 
       // Closes dropdown when the user clicked outside of it.
       function outsideClickHandler(event) {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target) && event.target.id !=="selected") {
           setSelected(true);
         }
       }
