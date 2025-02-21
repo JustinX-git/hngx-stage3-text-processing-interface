@@ -2,7 +2,8 @@ import {useRef } from "react";
 import "./AIOutputTxt.css";
 
 let loaderId = null;
-let timeLimitId = null;
+let translateTimeLimitId = null;
+let summarizeTimeLimitId = null;
 const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFullName, errorMsg, setMessages}) =>{
     //Refs
     const modifiedRef = useRef(null);
@@ -13,6 +14,7 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
     clearInterval(loaderId);
     clearTimeout(timeLimitId)
 
+    // Translation loader animation.
     if(action === "load"){
         const languageSymbols  = ["A", "Ç", "Ñ", "Я", "Ğ", "Ê"];
         let index = 0;
@@ -26,8 +28,8 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
            loaderRef.current.textContent = changeLanguage()
         },1000);
 
-
-        timeLimitId =  setTimeout(()=>{
+//If translating text loads for up to 20 mins, terminate process and display this error.
+        translateTimeLimitId =  setTimeout(()=>{
             setMessages((prevMessages) => {
                 const prev = [...prevMessages];
                 prev[prev.length - 1] = {
@@ -47,6 +49,19 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
         </div>
         )
     }else if(action === "summarizerload"){
+        //If summarizing text loads for up to an hour, terminate process and display this error.
+        summarizeTimeLimitId =  setTimeout(()=>{
+            setMessages((prevMessages) => {
+                const prev = [...prevMessages];
+                prev[prev.length - 1] = {
+                  sender: "ai",
+                  action: "displayError",
+                  msg: "Process took too long. Please check your internet connection or try a different text to proccess.",
+                };
+                return prev;
+              });
+        },3600000);
+        
         return( 
             <div className="AI-output" style={{
                 display:"flex",
@@ -85,7 +100,7 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
               <p>{originalTxt}</p>
               </div>
               <div className="modified-txt-wrapper">
-                <h3>{action === "translate" ? "Translation" : "Summary"}{action === "translate" ? ` (${targetFullName})` : ""}<i className="fa fa-clipboard" aria-hidden="true" title={`copy ${action === "translate" ? "translation" : "summary"}`} onClick={copyTextHandler}></i>
+                <h3>{action === "translate" ? "Translation" : "Summary"}{action === "translate" ? ` (${targetFullName})` : ""}<i className="fa fa-clipboard" aria-hidden="true" title={`copy ${action === "translate" ? "translation" : "summary"}`} onClick={copyTextHandler} tabIndex={0} aria-label="clipboard"></i>
                  <span ref={copyAlertRef} className="copy-alert"></span>
                 </h3>
                 <p ref={modifiedRef}>{modifiedTxt}</p>
