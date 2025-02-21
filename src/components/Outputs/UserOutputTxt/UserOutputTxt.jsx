@@ -120,7 +120,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
 
   try {
     const summarizer = await self.ai.summarizer.create({format:"plain-text"});
-    const summary = await summarizer.summarize(longText);
+    const summary = await summarizer.summarize(inputTxt);
 
     setMessages((prevMessages) => {
       const prev = [...prevMessages];
