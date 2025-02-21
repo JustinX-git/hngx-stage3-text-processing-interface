@@ -4,6 +4,35 @@
   padding: 2rem;
 }
 
+.compatibility-error-container, .download-content-container{
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 90vh;
+  height: 90dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+  text-align: center;
+}
+
+.background{
+  position: absolute;
+  display: grid;
+  place-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+.background .fa-frown-o{
+font-size: 10em;
+color: #21354732;
+}
+
 @media(max-width:540px){
   #root {
     padding: 1rem;

@@ -67,6 +67,8 @@ textarea{
   font-size: 17px;
   resize: none;
   color: #213547;
+  outline-width: 1px;
+  outline-color: #2143477e;
   background-color: #fff;
   }
 

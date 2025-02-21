@@ -4,13 +4,16 @@ import "./AIOutputTxt.css";
 let loaderId = null;
 let timeLimitId = null;
 const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFullName, errorMsg, setMessages}) =>{
+    //Refs
+    const modifiedRef = useRef(null);
+    const copyAlertRef = useRef(null);
+    const loaderRef = useRef(null);
     //Two setInterval Id's where created for some reason, hence this line aims to clear them both.
     clearInterval(loaderId - 1);
     clearInterval(loaderId);
     clearTimeout(timeLimitId)
 
     if(action === "load"){
-        const loaderRef = useRef(null);
         const languageSymbols  = ["A", "Ç", "Ñ", "Я", "Ğ", "Ê"];
         let index = 0;
 
@@ -60,6 +63,17 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
        </div>
        )
     }else{
+        const copyTextHandler = () =>{
+            const text = modifiedRef.current.textContent;
+
+            setTimeout(()=>{})
+              navigator.clipboard.writeText(text)
+              .then(() => {
+                copyAlertRef.current.classList.add("show")
+                setTimeout(()=>{copyAlertRef.current.classList.remove("show")},2000)
+              })
+              .catch(err => console.error("Failed to copy: ", err));
+        }
         return(
             <>
             <div className="AI-output">
@@ -68,8 +82,10 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
               <p>{originalTxt}</p>
               </div>
               <div className="modified-txt-wrapper">
-                <h3>{action === "translate" ? "Translation" : "Summary"}{action === "translate" ? ` (${targetFullName})` : ""}</h3>
-                <p>{modifiedTxt}</p>
+                <h3>{action === "translate" ? "Translation" : "Summary"}{action === "translate" ? ` (${targetFullName})` : ""}<i className="fa fa-clipboard" aria-hidden="true" title={`copy ${action === "translate" ? "translation" : "summary"}`} onClick={copyTextHandler}></i>
+                 <span ref={copyAlertRef} className="copy-alert">Copied to clipboard</span>
+                </h3>
+                <p ref={modifiedRef}>{modifiedTxt}</p>
               </div>
             </div>
             </>

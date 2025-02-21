@@ -133,7 +133,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
       return prev;
     });
   } catch (error) {
-    if(error.message === "The session cannot be created.")
+    if(error.message === "The session cannot be created."){
       setMessages((prevMessages) => {
         const prev = [...prevMessages];
         prev[prev.length - 1] = {
@@ -143,6 +143,17 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
         };
         return prev;
       });
+    }else{
+      setMessages((prevMessages) => {
+        const prev = [...prevMessages];
+        prev[prev.length - 1] = {
+          sender: "ai",
+          action: "displayError",
+          msg: "Something went wrong.",
+        };
+        return prev;
+      });
+    }
   }
 
 

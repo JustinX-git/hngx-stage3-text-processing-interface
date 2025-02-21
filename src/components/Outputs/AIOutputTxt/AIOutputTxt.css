@@ -2,6 +2,7 @@
 .morph-container {
     width: 300px;
     height: 100px;
+    transform: translateX(-90px);
 }
 
 .morph-container svg {
@@ -63,6 +64,58 @@
 .summarizer-loader{
     opacity: 1;
     animation: pulsingAppearance 1s ease-in-out  infinite alternate-reverse  forwards;
+}
+
+.fa-clipboard{
+    position:relative;
+    top:-5px;
+    left:5px;
+    cursor :pointer
+}
+
+/* .copy-alert{
+    display: none;
+    position: absolute;
+    top: 0;
+    transform: translateX(-18px);
+    width: 70px;
+    height: 49px;
+    place-items: center;
+    text-align: center;
+    font-size:12px;
+    color: #fff;
+    animation: scaleUp .2s cubic-bezier(1,-0.03,.63,1.46);
+    background-color: #333333c4;
+} */
+
+
+.copy-alert {
+    position: absolute;
+    top: -30px; /* Position above the button */
+    /* left: 50%; */
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 5px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none; /* Prevent interaction */
+  }
+
+  .copy-alert.show {
+    opacity: 1;
+  }
+
+@keyframes scaleUp{
+   to{
+    transform: scale(1);
+   }
+}
+
+.fa-clipboard:active{
+    scale: 0.8;
 }
 
 @keyframes pulsingAppearance  {

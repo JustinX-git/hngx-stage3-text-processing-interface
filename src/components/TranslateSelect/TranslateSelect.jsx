@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef,useEffect } from "react";
 import TranslateOption from "../TranslateOption/TranslateOption";
 import "./TranslateSelect.css";
 
@@ -11,8 +11,24 @@ const TranslateSelect = ({toSummarize, lang,setLang}) => {
     ["Turkish", "tr"],
     ["French", "fr"],
   ];
-
   const [selected, setSelected] = useState(true);
+  const dropdownRef = useRef(null);
+
+      // Closes dropdown when the user clicked outside of it.
+      function outsideClickHandler(event) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setSelected(true);
+        }
+      }
+  useEffect(() => {
+    outsideClickHandler
+    document.addEventListener("mousedown", outsideClickHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", outsideClickHandler);
+    };
+  }, []);
+  
 
 
   return (
@@ -28,7 +44,7 @@ const TranslateSelect = ({toSummarize, lang,setLang}) => {
           {lang.long}
           <i className="fa fa-chevron-down" aria-hidden="true"></i>
         </h3>
-        <ul id="translate-options" className={`${selected ? "" : "reveal"}`}>
+        <ul id="translate-options" className={`${selected ? "" : "reveal"}`} onClick={outsideClickHandler} ref={dropdownRef}>
           {options.map((option, index) => (
             <TranslateOption
               key={index}

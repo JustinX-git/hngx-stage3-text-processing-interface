@@ -1,24 +1,9 @@
-import { useState, useRef } from "react";
+import {useRef } from "react";
 import "./TextInput.css";
 
 const TextInput = ({isIntro, setMessages}) => {
   const inputRef = useRef(null);
-  const [disabledState, setDisabledState] = useState(false)
 
-  //Events
-  // const onChangeHandler = (e) =>{
-  //   if((e.target.value).trim() === ""){
-  //     setMessages((prevMessages)=>{
-  //       return [...prevMessages,{
-  //        sender: "ai",
-  //        action: "displayError",
-  //        msg: "Please enter text to be processed."
-  //      }]
-  //    });
-  //   } 
-  //     // setDisabledState(true)
-  //     // else setDisabledState(false)
-  // }
 
   const submissionHandler = (e) => {
     e.preventDefault();
@@ -33,7 +18,6 @@ const TextInput = ({isIntro, setMessages}) => {
     }else{
       const text = (inputRef.current.value).trim();
           inputRef.current.value = "";
-          // setDisabledState(true)
           setMessages((prevMessages) => {
             return [...prevMessages, { sender: "user", text}];
           });
@@ -56,9 +40,8 @@ const TextInput = ({isIntro, setMessages}) => {
           tabIndex={0}
           aria-placeholder="Enter text to process"
           aria-label="Enter text input"
-          // onChange={onChangeHandler}
         />
-        <button disabled={disabledState} aria-disabled={disabledState} tabIndex={0} aria-label="Submit text" type="submit" name="submit-btn" id="submit-btn">
+        <button  tabIndex={0} aria-label="Submit text" type="submit" name="submit-btn" id="submit-btn">
           <i className="fa fa-paper-plane" aria-hidden="true"></i>
         </button>
       </form>

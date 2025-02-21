@@ -92,7 +92,7 @@
 .option{
     position: relative;
     cursor: pointer;
-    padding: .8rem 0;
+    padding: .4rem 0;
     opacity: 0;
     transition: opacity .4s;
 }
