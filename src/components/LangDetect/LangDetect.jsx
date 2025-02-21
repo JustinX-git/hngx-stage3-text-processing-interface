@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const LangDetect = ({ inputText, index,messages,setToSummarize,setToTranslate }) => {
+const LangDetect = ({ inputText, index,setToSummarize,setToTranslate }) => {
   const [detection, setDetection] = useState("");
   let output = "";
 
@@ -16,6 +16,7 @@ const LangDetect = ({ inputText, index,messages,setToSummarize,setToTranslate })
     const results = await detector.detect(inputText);
     const { confidence, detectedLanguage } = results[0];
 
+    //Detection is accepted only if it superceeds a certain confidence threshold.
     if (
       confidence >= 0.4 &&
       getLanguageName(detectedLanguage) !== "unknown"
@@ -45,9 +46,11 @@ const LangDetect = ({ inputText, index,messages,setToSummarize,setToTranslate })
   useEffect(() => {
     const detectedLangs = JSON.parse(localStorage.getItem("detectedLangs")) || [];
   
+    //New Chat detection logic
     if ((detectedLangs[index] === undefined)) {
       detectLang(detectedLangs);
     } else {
+      //Old chat detection logic
       if (inputText.trim().length > 150 && detectedLangs[index][1] === "en") {
         setToSummarize(true);
       }

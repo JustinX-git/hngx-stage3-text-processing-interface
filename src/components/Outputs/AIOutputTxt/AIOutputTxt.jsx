@@ -64,7 +64,7 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
         },3600000);
         
         return( 
-            <div className="AI-output" style={{
+            <div className="pacman-loader" style={{
                 display:"flex",
                 alignItems:"center"
             }}>
@@ -75,7 +75,7 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
     }else if(action === "displayError" || action === "displayHumourousErr"){
        return( 
         <div className="AI-output">
-        <p aria-label="error message" aria-live="assertive"  className={action === "displayError" ? "alert" : ""}>{errorMsg}</p>
+        <p aria-label="error message" aria-live="assertive"  className={action === "displayError" ? "alert" : ""}>{action === "displayError" && <i className="fa fa-exclamation-circle" aria-hidden="true" style={{paddingRight:".3rem"}}></i>}{errorMsg}</p>
        </div>
        )
     }else{
@@ -101,7 +101,7 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
               <p>{originalTxt}</p>
               </div>
               <div className="modified-txt-wrapper">
-                <h3>{action === "translate" ? "Translation" : "Summary"}{action === "translate" ? ` (${targetFullName})` : ""}<i className="fa fa-clipboard" aria-hidden="true" title={`copy ${action === "translate" ? "translation" : "summary"}`} onClick={copyTextHandler} tabIndex={0} aria-label="clipboard"></i>
+                <h3>{action === "translate" ? "Translation" : "Summary"}{action === "translate" ? ` (${targetFullName})` : ""}<i className="fa fa-clipboard" title={`copy ${action === "translate" ? "translation" : "summary"}`} onClick={copyTextHandler} tabIndex={0} aria-label="clipboard"></i>
                  <span ref={copyAlertRef} className="copy-alert"></span>
                 </h3>
                 <p ref={modifiedRef}>{modifiedTxt}</p>

@@ -46,7 +46,6 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
 
         let translator;
         if (languagePackStatus === "readily") {
-          //translation logic
           translator = await self.ai.translator.create({
             sourceLanguage,
             targetLanguage,
@@ -92,7 +91,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
             prev[prev.length - 1] = {
               sender: "ai",
               action: "displayError",
-              msg: error.message,
+              msg: "Something went wrong during translation.",
             };
             return prev;
           });
@@ -151,7 +150,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
         prev[prev.length - 1] = {
           sender: "ai",
           action: "displayError",
-          msg: "Something went wrong.",
+          msg: "Something went wrong while creating the summary.",
         };
         return prev;
       });
