@@ -51,6 +51,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
             targetLanguage,
           });
         } else {
+          //If translation is supported but not available, the language pack is downloaded on demand.
           translator = await self.ai.translator.create({
             sourceLanguage,
             targetLanguage,
@@ -72,7 +73,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
         });
 
       } catch (error) {
-        //In the instance where user attempts to translate a language to itself, we display a humorous message.
+        //In the instance where user attempts to translate a language to itself, a humorous message is displayed.
         if (sourceLanguage === targetLanguage) {
           setTimeout(() => {
             setMessages((prevMessages) => {
