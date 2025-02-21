@@ -69,10 +69,13 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
             setTimeout(()=>{})
               navigator.clipboard.writeText(text)
               .then(() => {
-                copyAlertRef.current.classList.add("show")
-                setTimeout(()=>{copyAlertRef.current.classList.remove("show")},2000)
-              })
-              .catch(err => console.error("Failed to copy: ", err));
+                  copyAlertRef.current.textContent = "Copied to clipboard";
+                })
+                .catch(err =>{
+                    copyAlertRef.current.textContent = "Failed to copy"
+                });
+                copyAlertRef.current.classList.add("show");
+            setTimeout(()=>{copyAlertRef.current.classList.remove("show")},2000)
         }
         return(
             <>
@@ -83,7 +86,7 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
               </div>
               <div className="modified-txt-wrapper">
                 <h3>{action === "translate" ? "Translation" : "Summary"}{action === "translate" ? ` (${targetFullName})` : ""}<i className="fa fa-clipboard" aria-hidden="true" title={`copy ${action === "translate" ? "translation" : "summary"}`} onClick={copyTextHandler}></i>
-                 <span ref={copyAlertRef} className="copy-alert">Copied to clipboard</span>
+                 <span ref={copyAlertRef} className="copy-alert"></span>
                 </h3>
                 <p ref={modifiedRef}>{modifiedTxt}</p>
               </div>
