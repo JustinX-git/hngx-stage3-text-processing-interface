@@ -95,7 +95,6 @@ useEffect(()=>{
   return(
     <>
     <div className="download-content-container">
-    <div className="background"><i className="fa fa-smile-o" aria-hidden="true"></i></div>
     <h4>{`${detectorState.downloaded === 100 ? "Loaded detector model!" : `Downloading detector model:${detectorState.downloaded}%`}`}</h4>
     <h4>{`${summarizerState.downloaded === 100 ? "Loaded summarizer model!" : `Downloading summarizer model:${detectorState.downloaded}`}%`}</h4>
     </div>
