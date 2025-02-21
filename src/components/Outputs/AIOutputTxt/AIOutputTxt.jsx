@@ -12,7 +12,8 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
     //Two setInterval Id's where created for some reason, hence this line aims to clear them both.
     clearInterval(loaderId - 1);
     clearInterval(loaderId);
-    clearTimeout(timeLimitId)
+    clearTimeout(translateTimeLimitId)
+    clearTimeout(summarizeTimeLimitId)
 
     // Translation loader animation.
     if(action === "load"){
