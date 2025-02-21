@@ -13,6 +13,7 @@
     position: relative;
     display: inline-block;
     font-size: 4rem;
+    text-align: center;
     transform: translateY(-80%);
   }
   
@@ -53,15 +54,16 @@
      }
   }
 
-  @media(max-width:540px){
-    .txt-type{
-      font-size: 3rem;
-      padding: 0.4rem;
-      text-align: center;
-    }
-
+  @media(max-width:1024px){
     .static-cursor, .blinking-cursor,.blinking-cursor__xtra{
      display: none;
     }
     
+  }
+
+  @media(max-width:540px){
+    .txt-type{
+      font-size: 3rem;
+      padding: 0.4rem;
+    }    
   }

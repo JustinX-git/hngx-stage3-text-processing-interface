@@ -144,6 +144,8 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
         return prev;
       });
     }else{
+      console.log(error.message);
+      console.log(error);
       setMessages((prevMessages) => {
         const prev = [...prevMessages];
         prev[prev.length - 1] = {
