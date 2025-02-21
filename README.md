@@ -88,6 +88,3 @@ This project is an AI-powered text processing interface that leverages **Chrome'
 - **[Summarizer API Docs](https://developer.chrome.com/docs/ai/summarizer-api)**
 - **[Translator API Docs](https://developer.chrome.com/docs/ai/translator-api)**
 - **[Language Detection API Docs](https://developer.chrome.com/docs/ai/language-detection)**
-- **[Asynchronous JavaScript Handling](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous)**
-- **[Responsive Web Design Basics](https://web.dev/responsive-web-design-basics/)**
-- **[Accessible UI Design](https://www.digitala11y.com/)**
