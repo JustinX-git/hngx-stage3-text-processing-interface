@@ -12,6 +12,19 @@ const ChatSpace = () => {
   let userMsgIndex = 0;
 
 
+  // Allow submission with Enter key
+  useEffect(() => {
+    const scrollToBottomHandler = () => {
+        outputEndRef.current?.scrollIntoView({ behavior: "smooth" })  
+    };
+  
+    window.addEventListener("load", scrollToBottomHandler);
+  
+    return () => {
+      window.removeEventListener("load", scrollToBottomHandler); 
+    };
+  }, []);
+
 //Scrolls to the bottom of the chats for every update in the chat messages.
   useEffect(()=>{ 
     const lastMsg = messages[messages.length - 1];
@@ -20,7 +33,7 @@ const ChatSpace = () => {
     }
   
     localStorage.setItem("messages", JSON.stringify(messages));
-  },[messages])
+  },[messages]);
 
 
 

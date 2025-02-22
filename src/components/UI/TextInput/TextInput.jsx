@@ -1,4 +1,4 @@
-import {useRef } from "react";
+import {useEffect,useRef } from "react";
 import "./TextInput.css";
 
 const TextInput = ({isIntro, setMessages}) => {
@@ -6,7 +6,8 @@ const TextInput = ({isIntro, setMessages}) => {
 
 
   const submissionHandler = (e) => {
-    e.preventDefault();
+    if(e) e.preventDefault();
+  
     if((inputRef.current.value).trim() === ""){
       setMessages((prevMessages)=>{
         return [...prevMessages,{
@@ -23,6 +24,24 @@ const TextInput = ({isIntro, setMessages}) => {
           });
     } 
   };
+
+
+  // Allow submission with Enter key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter" && e.shiftKey !== true) {
+        e.preventDefault(); 
+        submissionHandler();
+      }
+    };
+  
+    window.addEventListener("keyup", handleKeyDown);
+  
+    return () => {
+      window.removeEventListener("keyup", handleKeyDown); 
+    };
+  }, []);
+  
 
   return (
     <>
