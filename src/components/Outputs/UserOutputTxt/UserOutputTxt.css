@@ -61,16 +61,11 @@
     padding: 7px 5px;
     color: #ffffff;
     box-shadow: 1px 1px 3px grey;
-    transition: scale .4s ease;
+    transition: all .4s ease;
 }
 
-.translate-btn, .summarize-btn{
-    border: none;
-    border-radius: 0px;
-    padding: 7px 5px;
-    color: #ffffff;
-    box-shadow: 1px 1px 3px grey;
-    transition: scale .4s ease;
+.translate-btn:disabled, .summarize-btn:disabled{
+ background: grey;
 }
 
 .translate-btn{

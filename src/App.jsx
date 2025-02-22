@@ -22,7 +22,7 @@ const App = () => {
     if (canDetect === "no") {
       setErrorState({
         isErr: true,
-        msg: "This app uses features not supported by your device.",
+        msg: "Your device doesn't meet the requirements to run this application.",
       });
     } else if (canDetect === "readily") {
       setDetectorState({ modelState: "available", downloaded: 100 });
@@ -92,7 +92,7 @@ const App = () => {
     );
   }, []);
 
-  // Handle errors
+  // Display Model load errors
   if (errorState.isErr) {
     return (
       <div className="compatibility-error-container">
@@ -106,7 +106,7 @@ const App = () => {
     );
   }
 
-  // Handle model downloads
+  // Display Model download progress.
   if (
     detectorState.modelState === "downloading" ||
     summarizerState.modelState === "downloading"

@@ -2,9 +2,16 @@ import "./Navbvar.css";
 
 const Navbvar = ({messages, setMessages}) =>{
     const createNewChatHandler = () =>{
+        if(localStorage.getItem("timeOutsAndIntervals")){
+            const timeOutsAndIntervals = JSON.parse(localStorage.getItem("timeOutsAndIntervals"));
+            timeOutsAndIntervals.forEach(each => {
+                clearInterval(each);
+                clearTimeout(each)
+            })
+        }
         localStorage.removeItem("detectedLangs");
-        localStorage.removeItem("messages")
-        setMessages([])
+        localStorage.removeItem("messages");
+        setMessages([]);
     }
 
     return(

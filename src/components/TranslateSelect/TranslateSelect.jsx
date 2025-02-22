@@ -34,7 +34,7 @@ const TranslateSelect = ({toSummarize, lang,setLang}) => {
   return (
     <>
      <div  aria-label={"Select translation"} className= {`select-container${selected ? "" : " reveal"}`} tabIndex={0}>
-      <div id="options-wrapper" className={`${selected ? "" : "reveal"}${toSummarize ? " shift":""}`} tabIndex={0}>
+      <div id="options-wrapper" className={`${selected ? "" : "reveal"}${toSummarize ? " shift":""}`} tabIndex={0} title="select a language to translate to">
         <h3
           onClick={() => {
             setSelected(selected === true ? false : true);

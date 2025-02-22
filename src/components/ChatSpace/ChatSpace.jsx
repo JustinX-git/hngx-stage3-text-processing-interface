@@ -31,7 +31,7 @@ const ChatSpace = () => {
     <>
      <Navbvar messages={messages} setMessages={setMessages}/>
     <div className="chatbox">
-      {messages.map((msg, index,array) => (msg.sender ==="user" ? <UserOutputTxt key={index} index={userMsgIndex++} inputTxt={msg.text} messages={array} setMessages={setMessages}/>:<AIOutputTxt  key={index} action={msg.action} originalTxt={msg.originalTxt} modifiedTxt={msg.modifiedTxt} sourceFullName={msg. sourceFullName} targetFullName={msg.targetFullName} errorMsg={msg.msg} setMessages={setMessages}/>)
+      {messages.map((msg, index,array) => (msg.sender ==="user" ? <UserOutputTxt key={index} index={userMsgIndex++} inputTxt={msg.text} messages={array} setMessages={setMessages}/>:<AIOutputTxt  key={index} action={msg.action} originalTxt={msg.originalTxt} modifiedTxt={msg.modifiedTxt} sourceFullName={msg. sourceFullName} targetFullName={msg.targetFullName} msg={msg.msg} setMessages={setMessages}/>)
     )}
     <div style={{marginTop:"2rem"}} ref={outputEndRef}/>
     </div>
