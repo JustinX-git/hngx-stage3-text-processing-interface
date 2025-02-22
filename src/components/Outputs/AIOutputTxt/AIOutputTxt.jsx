@@ -17,7 +17,6 @@ const AIOutputTxt = ({action, originalTxt, modifiedTxt,sourceFullName,targetFull
 
     // Translation loader animation.
     if(action === "load" || action === "displayProgress"){
-        console.log(action)
         const languageSymbols  = ["A", "Ç", "Ñ", "Я", "Ğ", "Ê"];
         let index = 0;
 

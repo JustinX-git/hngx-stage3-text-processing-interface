@@ -59,7 +59,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
               prev[prev.length - 1] = {
                 sender: "ai",
                 action: "displayError",
-                msg: "This translation is currently not supported, please try another.",
+                msg: "This translation is currently not supported, please try another language pair.",
               };
               return prev;
             });
