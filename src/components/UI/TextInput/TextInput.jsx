@@ -1,6 +1,9 @@
+import platform from "platform";
 import {useEffect,useRef } from "react";
 import "./TextInput.css";
 
+//Check platform and disable submission by enter key on mobile.
+const isMobile = platform.os ? /Android|iOS/i.test(platform.os.family) : false;
 const TextInput = ({isIntro, setMessages}) => {
   const inputRef = useRef(null);
 
@@ -29,7 +32,7 @@ const TextInput = ({isIntro, setMessages}) => {
   // Allow submission with Enter key
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Enter" && e.shiftKey !== true) {
+      if (!isMobile && e.key === "Enter" && e.shiftKey !== true) {
         e.preventDefault(); 
         submissionHandler();
       }

@@ -12,7 +12,7 @@ const ChatSpace = () => {
   let userMsgIndex = 0;
 
 
-  // Allow submission with Enter key
+  // Scroll to bottom of messages on load.
   useEffect(() => {
     const scrollToBottomHandler = () => {
         outputEndRef.current?.scrollIntoView({ behavior: "smooth" })  
