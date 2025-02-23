@@ -6,7 +6,7 @@ import "./TextInput.css";
 const isMobile = platform.os ? /Android|iOS/i.test(platform.os.family) : false;
 const TextInput = ({isIntro,messages,setMessages}) => {
   const inputRef = useRef(null);
-  const disabledState = messages[messages.length-1].action === "load" || messages[messages.length-1].action === "summarizerload" ? true : false;
+  const disabledState =  messages.length > 0 && (messages[messages.length-1].action === "load" || messages[messages.length-1].action === "summarizerload") ? true : false;
 
 
   const submissionHandler = (e) => {

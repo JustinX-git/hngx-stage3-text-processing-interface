@@ -65,7 +65,7 @@ const Intro = ({messages, setMessages}) =>{
           <span ref={textRef} className="txt"></span>
         </span>
       </h2>
-        <TextInput isIntro={true} setMessages={setMessages}/>
+        <TextInput isIntro={true} messages={messages} setMessages={setMessages}/>
     </div>
    )
 }

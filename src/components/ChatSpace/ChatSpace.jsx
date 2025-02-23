@@ -11,7 +11,6 @@ const ChatSpace = () => {
   const [messages, setMessages] = useState( localStorage.getItem("messages") ? JSON.parse(localStorage.getItem("messages")) : []);
   let userMsgIndex = 0;
 
-
   // Scroll to bottom of messages on load.
   useEffect(() => {
     const onLoadHandler = () => {
