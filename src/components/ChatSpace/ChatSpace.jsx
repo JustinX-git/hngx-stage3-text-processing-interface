@@ -14,14 +14,20 @@ const ChatSpace = () => {
 
   // Scroll to bottom of messages on load.
   useEffect(() => {
-    const scrollToBottomHandler = () => {
-        outputEndRef.current?.scrollIntoView({ behavior: "smooth" })  
+    const onLoadHandler = () => {
+        outputEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        if(messages.length !== 0 && (messages[messages.length -1].action === "load" || messages[messages.length -1].action === "summarizerload" )){
+          setMessages((prevMessages)=>{
+            const prev = prevMessages.slice(0,prevMessages.length - 1);
+            return prev
+          })
+        }
     };
   
-    window.addEventListener("load", scrollToBottomHandler);
+    window.addEventListener("load", onLoadHandler);
   
     return () => {
-      window.removeEventListener("load", scrollToBottomHandler); 
+      window.removeEventListener("load", onLoadHandler); 
     };
   }, []);
 
@@ -48,7 +54,7 @@ const ChatSpace = () => {
     )}
     <div style={{marginTop:"2rem"}} ref={outputEndRef}/>
     </div>
-       <TextInput isIntro={false} setMessages={setMessages}/>
+       <TextInput isIntro={false} messages={messages} setMessages={setMessages}/>
      </>
   )
 };

@@ -4,8 +4,9 @@ import "./TextInput.css";
 
 //Check platform and disable submission by enter key on mobile.
 const isMobile = platform.os ? /Android|iOS/i.test(platform.os.family) : false;
-const TextInput = ({isIntro, setMessages}) => {
+const TextInput = ({isIntro,messages,setMessages}) => {
   const inputRef = useRef(null);
+  const disabledState = messages[messages.length-1].action === "load" || messages[messages.length-1].action === "summarizerload" ? true : false;
 
 
   const submissionHandler = (e) => {
@@ -63,7 +64,7 @@ const TextInput = ({isIntro, setMessages}) => {
           aria-placeholder="Enter text to process"
           aria-label="Enter text input"
         />
-        <button  tabIndex={0} aria-label="Submit text" type="submit" name="submit-btn" id="submit-btn">
+        <button  tabIndex={0} disabled={disabledState} aria-disabled={disabledState} aria-label="Submit text" type="submit" name="submit-btn" id="submit-btn">
           <i className="fa fa-paper-plane" aria-hidden="true"></i>
         </button>
       </form>
