@@ -10,8 +10,11 @@ const TextInput = ({isIntro,messages,setMessages}) => {
 
 
   const submissionHandler = (e) => {
-    if(e) e.preventDefault();
-  
+    if(e) e.preventDefault()
+
+
+    if(disabledState) return;
+
     if((inputRef.current.value).trim() === ""){
       setMessages((prevMessages)=>{
         return [...prevMessages,{
@@ -21,11 +24,12 @@ const TextInput = ({isIntro,messages,setMessages}) => {
        }]
      });
     }else{
-      const text = (inputRef.current.value).trim();
-          inputRef.current.value = "";
-          setMessages((prevMessages) => {
-            return [...prevMessages, { sender: "user", text}];
-          });
+     
+        const text = (inputRef.current.value).trim();
+            inputRef.current.value = "";
+            setMessages((prevMessages) => {
+              return [...prevMessages, { sender: "user", text}];
+            });
     } 
   };
 
@@ -44,7 +48,7 @@ const TextInput = ({isIntro,messages,setMessages}) => {
     return () => {
       window.removeEventListener("keyup", handleKeyDown); 
     };
-  }, []);
+  }, [disabledState]);
   
 
   return (
