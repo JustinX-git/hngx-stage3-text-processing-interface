@@ -30,7 +30,23 @@ This project is an AI-powered text processing interface that leverages **Chrome'
   - Russian (ru)
   - Turkish (tr)
   - French (fr)
-- The translated text appears below the original output.
+- The translated text appears below the original output and can be copied.
+
+
+<table>
+  <tr>
+    <td align="center" style="background-color:hsla(220,1%, 71%,0.1); border:1px solid hsla(220,1%, 60%,0.3)"><strong>New chat interface</strong></td>
+    <td align="center" style="background-color:hsla(220,1%, 71%,0.1); border:1px solid hsla(220,1%, 60%,0.3"><strong>Translation interface</strong></td>
+  </tr>
+  <tr>
+    <td align="center" style="border:1px solid hsla(220,1%, 60%,0.3">
+      <img src="./public/new_chat_interface.png" width="400"/>
+    </td>
+    <td align="center" style="border:1px solid hsla(220,1%, 60%,0.3">
+      <img src="./public/translation_interface.png" width="400"/>
+    </td>
+  </tr>
+</table>
 
 
 
