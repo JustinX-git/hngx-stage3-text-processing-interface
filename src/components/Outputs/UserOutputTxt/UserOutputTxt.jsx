@@ -7,7 +7,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
   const [toSummarize, setToSummarize] = useState(false);
   const [toTranslate, setToTranslate] = useState(true);
   const [lang, setLang] = useState({ long: "English", short: "en" });
-  const lastMsgAction = messages[messages.length-1].action;
+  const lastMsgAction = messages[messages.length - 1].action;
 
   //Retrieve name of language from its asociated BCP 47 format.
   function getLanguageName(langCode) {
@@ -18,8 +18,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
   //Trigger translating  model
   const translateTxtHandler = async (e) => {
     e.preventDefault();
-    // Check availability of translation API.
-    if ("ai" in self && "translator" in self.ai) {
+    if ("Translator" in self) {
       const sourceLanguage = JSON.parse(localStorage.getItem("detectedLangs"))[
         index
       ][1];
@@ -27,20 +26,16 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
       const sourceFullName = getLanguageName(sourceLanguage);
       const targetFullName = getLanguageName(targetLanguage);
 
-      //Dispatch loading animation.
       setMessages((prevMessages) => {
         return [...prevMessages, { sender: "ai", action: "load" }];
       });
 
       try {
-        const translatorCapabilities = await self.ai.translator.capabilities();
-        const languagePackStatus = translatorCapabilities.languagePairAvailable(
+        const translatorCapabilities = await Translator.availability({
           sourceLanguage,
-          targetLanguage
-        );
-
-        if (languagePackStatus === "no") {
-          //In the instance where user attempts to translate a language to itself, a humorous message is displayed.
+          targetLanguage,
+        });
+        if (translatorCapabilities === "unavailable") {
           if (sourceLanguage === targetLanguage) {
             setTimeout(() => {
               setMessages((prevMessages) => {
@@ -53,33 +48,34 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
                 return prev;
               });
             }, 2000);
-          } else {
-            setMessages((prevMessages) => {
-              const prev = [...prevMessages];
-              prev[prev.length - 1] = {
-                sender: "ai",
-                action: "displayError",
-                msg: "This translation is currently not supported, please try another language pair.",
-              };
-              return prev;
-            });
-          }
+            return
+          };
+          
+          setMessages((prevMessages) => {
+            const prev = [...prevMessages];
+            prev[prev.length - 1] = {
+              sender: "ai",
+              action: "displayError",
+              msg: "This translation is currently not supported, please try another language pair.",
+            };
+            return prev;
+          });
           return;
         }
 
         let translator;
-        if (languagePackStatus === "readily") {
-          translator = await self.ai.translator.create({
+        if (translatorCapabilities === "available") {
+          translator = await Translator.create({
             sourceLanguage,
             targetLanguage,
           });
         } else {
-          //If translation is supported but requires download, it is downloaded on demand.
           try {
-            if(!navigator.onLine){
+            if (!navigator.onLine) {
               throw new Error("NetworkError");
             }
-            translator = await self.ai.translator.create({
+            //Attempt download of language pack.
+            translator = await Translator.create({
               sourceLanguage,
               targetLanguage,
             });
@@ -107,10 +103,10 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
           prev[prev.length - 1] = {
             sender: "ai",
             action: "translate",
-            sourceFullName,
-            targetFullName,
             originalTxt: inputTxt,
             modifiedTxt: translation,
+            sourceFullName,
+            targetFullName,
           };
           return prev;
         });
@@ -142,14 +138,14 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
   //Trigger summarizer model
   const summarizeTxtHandler = async (e) => {
     e.preventDefault();
-    if ("ai" in self && "summarizer" in self.ai) {
+    if ('Summarizer' in self) {
       //Dispatch loading animation.
       setMessages((prevMessages) => {
         return [...prevMessages, { sender: "ai", action: "summarizerload" }];
       });
 
       try {
-        const summarizer = await self.ai.summarizer.create({
+        const summarizer = await Summarizer.create({
           format: "plain-text",
         });
         const summary = await summarizer.summarize(inputTxt);
@@ -165,7 +161,8 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
           return prev;
         });
       } catch (error) {
-        if (error.message === "The session cannot be created.") {
+        console.log(error)
+        if (error.message.includes("The GPU is blocked")) {
           setMessages((prevMessages) => {
             const prev = [...prevMessages];
             prev[prev.length - 1] = {
@@ -221,8 +218,12 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
               aria-label="translate button"
               className="translate-btn"
               disabled={lastMsgAction === "load" ? true : false}
-              aria-disabled= {lastMsgAction === "load" ? true : false}
-              title={`${lastMsgAction === "load" ? "disabled" : "translate your text to selected language"}`}
+              aria-disabled={lastMsgAction === "load" ? true : false}
+              title={`${
+                lastMsgAction === "load"
+                  ? "disabled"
+                  : "translate your text to selected language"
+              }`}
               onClick={translateTxtHandler}
             >
               Translate <i className="fa fa-exchange" aria-hidden="true"></i>
@@ -234,8 +235,10 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
               aria-label="summarize button"
               className="summarize-btn"
               disabled={lastMsgAction === "load" ? true : false}
-              aria-disabled= {lastMsgAction === "load" ? true : false}
-              title={`${lastMsgAction === "load" ? "disabled" : "summarize your text"}`}
+              aria-disabled={lastMsgAction === "load" ? true : false}
+              title={`${
+                lastMsgAction === "load" ? "disabled" : "summarize your text"
+              }`}
               onClick={summarizeTxtHandler}
             >
               Summarize <i className="fa fa-align-right" aria-hidden="true"></i>

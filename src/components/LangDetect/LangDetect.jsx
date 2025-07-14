@@ -12,13 +12,13 @@ const LangDetect = ({ inputText, index,setToSummarize,setToTranslate }) => {
   }
 
   const detectLang = async (detectedLangs) => {
-    const detector = await self.ai.languageDetector.create();
+    const detector = await LanguageDetector.create();
     const results = await detector.detect(inputText);
     const { confidence, detectedLanguage } = results[0];
 
     //Detection is accepted only if it superceeds a certain confidence threshold.
     if (
-      confidence >= 0.4 &&
+      confidence >= 0.6 &&
       getLanguageName(detectedLanguage) !== "unknown"
     ) {
       output = `Detected Language: ${getLanguageName(

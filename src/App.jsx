@@ -15,19 +15,17 @@ const App = () => {
 
   // Check and download the language detector model.
   const downloadLangDetectModel = async () => {
-    const languageDetectorCapabilities =
-      await self.ai.languageDetector.capabilities();
-    const canDetect = languageDetectorCapabilities.available;
+    const availability = await LanguageDetector.availability();
 
-    if (canDetect === "no") {
+    if (availability === "unavailable") {
       setErrorState({
         isErr: true,
         msg: "Your device doesn't meet the requirements to run this application.",
       });
-    } else if (canDetect === "readily") {
+    } else if (availability === "available") {
       setDetectorState({ modelState: "available", downloaded: 100 });
     } else {
-      const detector = await self.ai.languageDetector.create({
+      const detector = await LanguageDetector.create({
         monitor(m) {
           m.addEventListener("downloadprogress", (e) => {
             setDetectorState({
@@ -44,14 +42,13 @@ const App = () => {
 
   // Check and download the summarizer model.
   const downloadSummarizerModel = async () => {
-    const languageSummarizerCapabilities =
-      await self.ai.summarizer.capabilities();
-    const canSummarize = languageSummarizerCapabilities.available;
+    const availability = await Summarizer.availability();
+    console.log(availability)
 
-    if (canSummarize === "readily") {
+    if (availability === 'available') {
       setSummarizerState({ modelState: "available", downloaded: 100 });
     } else if (canSummarize === "after-download") {
-      const summarizer = await self.ai.summarizer.create();
+      const summarizer = await Summarizer.create(options);
       summarizer.addEventListener("downloadprogress", (e) => {
         setSummarizerState({
           modelState: "downloading",
@@ -65,7 +62,7 @@ const App = () => {
 
   // The app would halt on failing to download the language detector model as this requires the least resources of the three, so a failure on this end almost certainly implies a failure on the other models. The reliance of the translator model on this API is another reason for this halting.
   useEffect(() => {
-    if ("ai" in self && "languageDetector" in self.ai) {
+    if ('LanguageDetector' in self) {
       downloadLangDetectModel().catch(() =>
         setErrorState({
           isErr: true,
