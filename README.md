@@ -6,23 +6,20 @@ This project is an AI-powered text processing interface that leverages **Chrome'
 
 ## Features
 
-### 📝 Input & Output
-
-- A **large textarea** where users can input or paste text.
-- A **send button** (with an icon) to submit the text.
+### Input & Output
 - **Chat-style output display**, where the entered text appears immediately in the output area.
 
-### 🌍 Language Detection
+### Language Detection
 
 - **Automatically detects the language** of the input text using the **Language Detection API**.
 - The detected language is displayed below the text.
 
-### ✨ Summarization (Only for English Texts)
+### Summarization (Only for English Texts)
 
 - If the text is **more than 150 characters** and in **English**, a **"Summarize"** button appears below it.
 - Clicking "Summarize" processes the text using **Chrome’s Summarizer API** and renders a concise summary.
 
-### 🔄 Translation
+### Translation
 
 - A **language selector** (dropdown) to choose a target language.
 - A **"Translate" button** to translate the output text using **Chrome’s Translator API**.
@@ -35,7 +32,9 @@ This project is an AI-powered text processing interface that leverages **Chrome'
   - French (fr)
 - The translated text appears below the original output.
 
-## 🔧 Technologies Used
+
+
+## Technologies Used
 
 - **HTML, CSS, JavaScript (ES6+)**
 - **React**
@@ -43,12 +42,12 @@ This project is an AI-powered text processing interface that leverages **Chrome'
 - **ARIA & Accessibility Features**
 - **Responsive Web Design Principles**
 
-### 📱 Responsive Design
+### Responsive Design
 
 - Optimized for **desktop, tablet, and mobile devices**.
 - Flexible layout ensuring smooth usability across screen sizes.
 
-### ♿ Accessibility Features
+### Accessibility Features
 
 - **Keyboard navigability** for all interactive elements.
 - **ARIA labels & focus indicators** for inputs, buttons, and outputs.
@@ -57,9 +56,12 @@ This project is an AI-powered text processing interface that leverages **Chrome'
 ## 🚀 Getting Started
 
 ### Prerequisites
-
+To sucessfully run all the models in Chrome, the following requirements should be met or taken note of:
 - **Google Chrome (latest version)**
-- **Experimental Chrome AI APIs enabled** (via Chrome Flags)
+- **Windows 10 or 11; macOS 13+ (Ventura and onwards); or Linux. Chrome for Android, iOS, and ChromeOS are not yet supported by the APIs which use Gemini Nano.**
+- **Storage: At least 22 GB on the volume that contains your Chrome profile.**
+- **GPU: Strictly more than 4 GB of VRAM.**
+- **Network: Unlimited data or an unmetered connection.**
 
 ### Installation (with Vite)
 
@@ -80,7 +82,8 @@ This project is an AI-powered text processing interface that leverages **Chrome'
 
 ## 📡 Deployment
 
-- Hosted on Netlify.
+- Hosted via Netlify.
+- Visit the app: [Textify](https://uziee-ai-text-processing-interface.netlify.app/)
 
 ## 📚 Study Material
 

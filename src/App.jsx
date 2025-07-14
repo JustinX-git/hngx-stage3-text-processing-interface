@@ -43,7 +43,6 @@ const App = () => {
   // Check and download the summarizer model.
   const downloadSummarizerModel = async () => {
     const availability = await Summarizer.availability();
-    console.log(availability)
 
     if (availability === 'available') {
       setSummarizerState({ modelState: "available", downloaded: 100 });
