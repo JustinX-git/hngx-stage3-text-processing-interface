@@ -48,9 +48,9 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
                 return prev;
               });
             }, 2000);
-            return
-          };
-          
+            return;
+          }
+
           setMessages((prevMessages) => {
             const prev = [...prevMessages];
             prev[prev.length - 1] = {
@@ -138,8 +138,7 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
   //Trigger summarizer model
   const summarizeTxtHandler = async (e) => {
     e.preventDefault();
-    if ('Summarizer' in self) {
-      //Dispatch loading animation.
+    if ("Summarizer" in self) {
       setMessages((prevMessages) => {
         return [...prevMessages, { sender: "ai", action: "summarizerload" }];
       });
@@ -161,7 +160,6 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
           return prev;
         });
       } catch (error) {
-        console.log(error)
         if (error.message.includes("The GPU is blocked")) {
           setMessages((prevMessages) => {
             const prev = [...prevMessages];
@@ -234,10 +232,10 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
               tabIndex={0}
               aria-label="summarize button"
               className="summarize-btn"
-              disabled={lastMsgAction === "load" ? true : false}
-              aria-disabled={lastMsgAction === "load" ? true : false}
+              disabled={lastMsgAction === "load" || "summarizerload"  ? true : false}
+              aria-disabled={lastMsgAction === "load" || "summarizerload" ? true : false}
               title={`${
-                lastMsgAction === "load" ? "disabled" : "summarize your text"
+                lastMsgAction === "load" || "summarizerload" ? "disabled" : "summarize your text"
               }`}
               onClick={summarizeTxtHandler}
             >
