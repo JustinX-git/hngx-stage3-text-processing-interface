@@ -1,8 +1,12 @@
+import platform from "platform";
 import { useState, useEffect } from "react";
 import ChatSpace from "./components/ChatSpace/ChatSpace";
 import "./App.css";
 
 const App = () => {
+  const isMobile = platform.os
+    ? /Android|iOS/i.test(platform.os.family)
+    : false;
   const [errorState, setErrorState] = useState({ isErr: false, msg: "" });
   const [detectorState, setDetectorState] = useState({
     modelState: "unavailable",
@@ -44,7 +48,7 @@ const App = () => {
   const downloadSummarizerModel = async () => {
     const availability = await Summarizer.availability();
 
-    if (availability === 'available') {
+    if (availability === "available") {
       setSummarizerState({ modelState: "available", downloaded: 100 });
     } else if (canSummarize === "after-download") {
       const summarizer = await Summarizer.create(options);
@@ -61,7 +65,15 @@ const App = () => {
 
   // The app would halt on failing to download the language detector model as this requires the least resources of the three, so a failure on this end almost certainly implies a failure on the other models. The reliance of the translator model on this API is another reason for this halting.
   useEffect(() => {
-    if ('LanguageDetector' in self) {
+    if (isMobile) {
+      setErrorState({
+        isErr: true,
+        msg: "Your browser does not support this application",
+      });
+      return;
+    }
+
+    if ("LanguageDetector" in self) {
       downloadLangDetectModel().catch(() =>
         setErrorState({
           isErr: true,
@@ -78,6 +90,13 @@ const App = () => {
 
   //Unlike the language detector model, the app would not halt on failing to download the summarize model due to how resource intensive it is.
   useEffect(() => {
+    if (isMobile) {
+      setErrorState({
+        isErr: true,
+        msg: "Your browser does not support this application",
+      });
+      return;
+    }
     downloadSummarizerModel().catch(() =>
       setSummarizerState((prevState) => {
         return {
@@ -124,7 +143,7 @@ const App = () => {
   }
 
   // Load Chat Interface
-  return <ChatSpace />;
+  return detectorState.modelState === "available" ? <ChatSpace /> : null;
 };
 
 export default App;

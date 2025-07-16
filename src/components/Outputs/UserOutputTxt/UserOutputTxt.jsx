@@ -215,10 +215,10 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
               tabIndex={0}
               aria-label="translate button"
               className="translate-btn"
-              disabled={lastMsgAction === "load" ? true : false}
-              aria-disabled={lastMsgAction === "load" ? true : false}
+              disabled={lastMsgAction === ("load" || "summarizerload") ? true : false}
+              aria-disabled={lastMsgAction === ("load" || "summarizerload") ? true : false}
               title={`${
-                lastMsgAction === "load"
+                lastMsgAction === ("load" || "summarizerload")
                   ? "disabled"
                   : "translate your text to selected language"
               }`}
@@ -232,10 +232,10 @@ const UserOutputTxt = ({ index, inputTxt, messages, setMessages }) => {
               tabIndex={0}
               aria-label="summarize button"
               className="summarize-btn"
-              disabled={lastMsgAction === "load" || "summarizerload"  ? true : false}
-              aria-disabled={lastMsgAction === "load" || "summarizerload" ? true : false}
+              disabled={lastMsgAction === ("load" || "summarizerload")  ? true : false}
+              aria-disabled={lastMsgAction === ("load" || "summarizerload") ? true : false}
               title={`${
-                lastMsgAction === "load" || "summarizerload" ? "disabled" : "summarize your text"
+                lastMsgAction === ("load" || "summarizerload") ? "disabled" : "summarize your text"
               }`}
               onClick={summarizeTxtHandler}
             >
